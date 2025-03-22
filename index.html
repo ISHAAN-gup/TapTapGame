@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tap Tap Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/3/3a/STS-7_Challenger_Launch.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #topBar, #bottomBar {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #title {
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px black;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        #subtitle {
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px black;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        #gameContainer {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+        #tapButton {
+            font-size: 24px;
+            padding: 20px;
+            width: 100%;
+            background-color: #0095DD;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .score {
+            font-size: 28px;
+            margin-top: 20px;
+        }
+        #colorSelector {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="topBar">Welcome to Tap Tap Challenge!</div>
+    <div id="title">TAP TAP FAST FOR MORE SCORE!</div>
+    <div id="subtitle">Can you get the highest score?</div>
+    <div id="gameContainer">
+        <button id="tapButton" ontouchstart="increaseScore()" onclick="increaseScore()">Tap Me!</button>
+        <p class="score" id="score1">Score: 0</p>
+        <p class="score" id="score2">Score: 0</p>
+        <label for="colorSelector">Choose Background Color:</label>
+        <select id="colorSelector" onchange="changeBackgroundColor()">
+            <option value="red">Red</option>
+            <option value="pink">Pink</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+            <option value="yellow">Yellow</option>
+            <option value="default">Default</option>
+        </select>
+    </div>
+    <div id="bottomBar">Keep Tapping! Reach the Highest Score!</div>
+    <script>
+        let score = localStorage.getItem("tapScore") ? parseInt(localStorage.getItem("tapScore")) : 0;
+        document.getElementById("score1").innerText = "Score: " + score;
+        document.getElementById("score2").innerText = "Score: " + score;
+
+        function increaseScore() {
+            score++;
+            document.getElementById("score1").innerText = "Score: " + score;
+            document.getElementById("score2").innerText = "Score: " + score;
+            localStorage.setItem("tapScore", score);
+        }
+        
+        function changeBackgroundColor() {
+            let selectedColor = document.getElementById("colorSelector").value;
+            if (selectedColor === "default") {
+                document.body.style.background = "url('https://upload.wikimedia.org/wikipedia/commons/3/3a/STS-7_Challenger_Launch.jpg') no-repeat center center fixed";
+                document.body.style.backgroundSize = "cover";
+            } else {
+                document.body.style.background = selectedColor;
+            }
+        }
+    </script>
+</body>
+</html>
